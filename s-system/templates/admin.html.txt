@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin - S SYSTEM</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Admin Panel</h2>
+    <table border="1" width="100%">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Aadhaar</th>
+        <th>Phone</th>
+        <th>Reg Code</th>
+      </tr>
+      {% for user in users %}
+      <tr>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.aadhaar }}</td>
+        <td>{{ user.phone }}</td>
+        <td>{{ user.reg_code }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</body>
+</html>

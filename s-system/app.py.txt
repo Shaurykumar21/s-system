@@ -1,0 +1,74 @@
+from flask import Flask, render_template, request, redirect, url_for
+import os
+import uuid
+
+app = Flask(_name_)
+app.config['UPLOAD_FOLDER'] = 'static/uploads'
+
+# Dummy user for login demo
+admin_email = "admin@example.com"
+admin_password = "admin123"
+
+# Store registered users temporarily
+users = []
+
+@app.route('/')
+def home():
+    return render_template('login.html')
+
+@app.route('/login', methods=['POST'])
+def login():
+    email = request.form['email']
+    aadhaar = request.form['aadhaar']
+    password = request.form['password']
+    # Simple check: if admin, go to admin page
+    if email == admin_email and password == admin_password:
+        return redirect('/admin')
+    else:
+        return redirect('/register')
+
+@app.route('/register')
+def register():
+    return render_template('registration.html')
+
+@app.route('/submit', methods=['POST'])
+def submit():
+    name = request.form['name']
+    email = request.form['email']
+    aadhaar = request.form['aadhaar']
+    phone = request.form['phone']
+    address_perm = request.form['address_perm']
+    address_temp = request.form['address_temp']
+    alt_phone = request.form['alt_phone']
+
+    aadhaar_front = request.files['aadhaar_front']
+    aadhaar_back = request.files['aadhaar_back']
+    photo = request.files['photo']
+
+    # Save uploaded files
+    front_filename = str(uuid.uuid4()) + "_" + aadhaar_front.filename
+    back_filename = str(uuid.uuid4()) + "_" + aadhaar_back.filename
+    photo_filename = str(uuid.uuid4()) + "_" + photo.filename
+
+    aadhaar_front.save(os.path.join(app.config['UPLOAD_FOLDER'], front_filename))
+    aadhaar_back.save(os.path.join(app.config['UPLOAD_FOLDER'], back_filename))
+    photo.save(os.path.join(app.config['UPLOAD_FOLDER'], photo_filename))
+
+    # Generate random registration code
+    reg_code = str(uuid.uuid4())[:8]
+
+    # Save user data
+    users.append({
+        "name": name, "email": email, "aadhaar": aadhaar, "phone": phone,
+        "address_perm": address_perm, "address_temp": address_temp, "alt_phone": alt_phone,
+        "reg_code": reg_code
+    })
+
+    return render_template('success.html', reg_code=reg_code)
+
+@app.route('/admin')
+def admin():
+    return render_template('admin.html', users=users)
+
+if _name_ == '_main_':
+    app.run(debug=True)

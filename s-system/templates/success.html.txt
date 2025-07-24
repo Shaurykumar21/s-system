@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Success - S SYSTEM</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Registration Successful!</h2>
+    <p>Your registration code: <strong>{{ reg_code }}</strong></p>
+  </div>
+</body>
+</html>

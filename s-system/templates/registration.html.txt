@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register - S SYSTEM</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Registration</h2>
+    <form action="/submit" method="POST" enctype="multipart/form-data">
+      <input type="text" name="name" placeholder="Full Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="text" name="aadhaar" placeholder="Aadhaar Number" required>
+      <input type="text" name="phone" placeholder="Phone Number" required>
+      <input type="text" name="address_perm" placeholder="Permanent Address" required>
+      <input type="text" name="address_temp" placeholder="Temporary Address" required>
+      <input type="text" name="alt_phone" placeholder="Alternative Phone Number">
+      <label>Upload Aadhaar Front:</label>
+      <input type="file" name="aadhaar_front" required>
+      <label>Upload Aadhaar Back:</label>
+      <input type="file" name="aadhaar_back" required>
+      <label>Upload Photo:</label>
+      <input type="file" name="photo" required>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</body>
+</html>
